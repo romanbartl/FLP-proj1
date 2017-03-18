@@ -1,0 +1,6 @@
+*.o
+*.hi
+simplify-bkg
+*.out
+*.in
+fileParser
