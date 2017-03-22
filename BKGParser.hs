@@ -14,17 +14,17 @@ parseBKG inG = case readP_to_S bkgParser inG of
 
 bkgParser :: ReadP Grammar 
 bkgParser = do 
-    nonTerms <- parseTerms
+    nonterms <- parseTerms
     --traceM "neterminaly:"
-    --traceShowM nonTerms 
+    --traceShowM nonterms 
     newLine
     terms <- parseTerms
     newLine
-    startNonTerm <- parseTerm
+    startNonterm <- parseTerm
     newLine
     rules <- parseRules 
     eof
-    return $ Grammar nonTerms terms startNonTerm rules
+    return $ Grammar nonterms terms startNonterm rules
 
 newLine =  char '\n'
 comma = char ','

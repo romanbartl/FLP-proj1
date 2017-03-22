@@ -2,7 +2,7 @@ module Types.BKG
     where
 
 type TTerm = String
-type TNonTerm = String
+type TNonterm = String
 type TermNontermComb = String
 
 data TRule = TRule
@@ -12,12 +12,14 @@ data TRule = TRule
     deriving (Show)
 
 data Grammar = Grammar
-    { nonTerms :: [TNonTerm]
+    { nonterms :: [TNonterm]
     , terms :: [TTerm]
-    , startNonTerm :: TNonTerm
+    , startNonterm :: TNonterm
     , rules :: [TRule]
-    }
-    deriving (Show)
+    } deriving (Show)
+
+-- instance Show Grammar 
+--    where show nonterms = showsPrec nonterms 
 
 data ProgAction 
     = PrintState
@@ -26,8 +28,9 @@ data ProgAction
     deriving (Show)
 
 data  Config = Config
-    { pAction :: ProgAction
+    { action :: ProgAction
     , noInput :: Bool
-    , inGrammar :: FilePath
+    , fileName :: FilePath
     }   
     deriving (Show)
+
