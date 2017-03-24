@@ -6,7 +6,7 @@ type TNonterm = String
 type TermNontermComb = String
 
 data TRule = TRule
-    { leftS :: TTerm
+    { leftS :: TNonterm
     , rightS :: TermNontermComb
     }
     deriving (Show)
@@ -17,9 +17,6 @@ data Grammar = Grammar
     , startNonterm :: TNonterm
     , rules :: [TRule]
     } deriving (Show)
-
--- instance Show Grammar 
---    where show nonterms = showsPrec nonterms 
 
 data ProgAction 
     = PrintState

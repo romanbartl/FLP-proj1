@@ -19,10 +19,16 @@ bkgParser = do
     --traceShowM nonterms 
     newLine
     terms <- parseTerms
+    --traceM "terminaly:"
+    --traceShowM terms 
     newLine
     startNonterm <- parseTerm
+    --traceM "terminaly:"
+    --traceShowM startNonterm
     newLine
-    rules <- parseRules 
+    rules <- parseRules
+    --traceM "terminaly:"
+    --traceShowM rules 
     eof
     return $ Grammar nonterms terms startNonterm rules
 
