@@ -22,40 +22,31 @@ main :: IO ()
 main = do  
    conf <- parseArgs <$> getArgs      --getArfs:: IO[String]
    case conf of 
-      Right Config{..} -> handleInBKG Config{..}
       Left e -> print e
+      Right Config{..} ->  do 
+        g <- case noInput of  
+          True -> parseBKG <$> hGetContents stdin 
+          otherwise -> parseBKG <$> readFile fileName 
+        
+        case g of
+          Left e -> print e
+          Right r -> 
+            case (handleInBKG r action ) of 
+              Left e -> print e 
+              Right result -> printGrammar result 
+            
+--handleInBKG Config{..}           
 
-handleInBKG :: Config -> IO ()
-handleInBKG Config{..} = do 
-   -- cmp <- doesFileExist inGrammar    
-   -- print cmp
-    g <- case noInput of  
-      True -> parseBKG <$> hGetContents stdin 
-      otherwise -> parseBKG <$> readFile fileName 
-    
-    case g of
-        Left e -> print e
-        Right r -> 
-            case action of 
-                PrintState -> printGrammar r
-                FirstStep -> do
-                    printGrammar $ alg1 r 
-                    --print $ getNtSet r []
-                SecondStep -> do
-                  --print $ func r ["S"]
-                  --print $ createViSet r ["S"] 
-                  --print $ getViSet r ["S"]
-                  printGrammar $ alg2 $ alg1 r             
-    --
- 
-    --case action of
-    --  PrintState -> printGrammer r
-    --  FirstStep ->  print action
-    --  SecondStep -> print action
-    --return ()
-    --where
-    --parseInput = do 
-    --  parseBKG <$> hGetContents stdin 
+handleInBKG :: Grammar -> ProgAction -> Either String Grammar
+handleInBKG g action = case (gCheck g) of 
+                  Left e -> Left e 
+                  Right r -> case action of 
+                              PrintState -> Right g
+                              FirstStep -> Right $ alg1 g 
+                              --print $ getNtSet r []
+                              SecondStep -> Right $ alg2 $ alg1 g             
+
+
 
 -----------------------------------------------------------------------------------------
 printGrammar Grammar{..} = do 
