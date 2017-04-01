@@ -1,5 +1,11 @@
-{-# LANGUAGE RecordWildCards #-}
+{-FLP 2017
+  Functional project - SIMPLIFY-BKG
+  Author : Studena Zuzana
+  Login : xstude22
+  Date : 31.3.2017
+-}
 
+{-# LANGUAGE RecordWildCards #-}
 module Main
     (main)
 where
